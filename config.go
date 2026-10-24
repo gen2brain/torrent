@@ -13,7 +13,6 @@ import (
 	"github.com/anacrolix/log"
 	"github.com/anacrolix/missinggo/v2"
 
-	"github.com/pion/webrtc/v4"
 	"golang.org/x/time/rate"
 
 	"github.com/anacrolix/torrent/iplist"
@@ -276,9 +275,7 @@ type ClientConfig struct {
 
 	Callbacks Callbacks
 
-	// ICEServerList defines a slice describing servers available to be used by
-	// ICE, such as STUN and TURN servers.
-	ICEServerList []webrtc.ICEServer
+	webtorrentConfig
 
 	// Deprecated. ICEServers does not support server authentication and therefore
 	// it cannot be used with most TURN servers. Use ICEServerList instead.

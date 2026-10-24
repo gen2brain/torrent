@@ -1,3 +1,6 @@
+//go:build !nowebtorrent
+// +build !nowebtorrent
+
 package torrent
 
 import (
