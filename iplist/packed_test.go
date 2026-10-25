@@ -1,3 +1,5 @@
+//go:build !nommap
+
 package iplist
 
 import (
