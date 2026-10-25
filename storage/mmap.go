@@ -1,5 +1,5 @@
-//go:build !wasm
-// +build !wasm
+//go:build !wasm && !nommap
+// +build !wasm,!nommap
 
 package storage
 
