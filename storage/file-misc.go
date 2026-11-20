@@ -32,6 +32,12 @@ func minFileLengthsForTorrentExtent(
 func fsync(filePath string) (err error) {
 	f, err := os.OpenFile(filePath, fsyncOpenFlag, 0)
 	if err != nil {
+		// A promoted file was flushed before it was made read-only.
+		if fsyncOpenFlag != os.O_RDONLY && errors.Is(err, fs.ErrPermission) {
+			if fi, statErr := os.Stat(filePath); statErr == nil && fi.Mode().Perm()&0o222 == 0 {
+				return nil
+			}
+		}
 		return
 	}
 	defer f.Close()

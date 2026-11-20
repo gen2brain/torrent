@@ -5,7 +5,6 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
-	"runtime"
 	"sync"
 	"testing"
 
@@ -144,9 +143,6 @@ func TestTorrentCheckpointBufferConcurrentQueuePiece(t *testing.T) {
 // promotion makes read-only. Flushing it must not need write access, or the checkpoint fails and
 // keeps every later completion buffered until the torrent closes.
 func TestTorrentCheckpointFlushesReadOnlyPromotedFile(t *testing.T) {
-	if runtime.GOOS == "windows" {
-		t.Skip("FlushFileBuffers requires write access")
-	}
 	dir := t.TempDir()
 	promoted := filepath.Join(dir, "a.bin")
 	qt.Assert(t, qt.IsNil(os.WriteFile(promoted, []byte{1}, filePerm&^0o222)))
